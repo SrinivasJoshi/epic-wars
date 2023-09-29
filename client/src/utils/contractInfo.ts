@@ -1,4 +1,4 @@
-export const contractAddress = "0x949EeF6D73417ce4792ed611eC1c13165EC40C5E";
+export const contractAddress = "0xb66dbF25bD87c42a9C7864d1C709d675B4Dd4299";
 export const contractABI = [
   {
     inputs: [],
@@ -56,6 +56,174 @@ export const contractABI = [
     type: "event",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
+    name: "approve",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "characterID",
+        type: "uint256",
+      },
+    ],
+    name: "mintCharacter",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
+    name: "safeTransferFrom",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes",
+        name: "data",
+        type: "bytes",
+      },
+    ],
+    name: "safeTransferFrom",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "operator",
+        type: "address",
+      },
+      {
+        internalType: "bool",
+        name: "approved",
+        type: "bool",
+      },
+    ],
+    name: "setApprovalForAll",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_baseURI",
+        type: "string",
+      },
+    ],
+    name: "setBaseURI",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "characterID",
+        type: "uint256",
+      },
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "elementalMagic",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "lightningStealth",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "elementalControl",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "timeAndSpace",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "celestialSpace",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "chaosEnergy",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "quantumEnigma",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct GalacticaCore.Character",
+        name: "character",
+        type: "tuple",
+      },
+    ],
+    name: "setCharacter",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     anonymous: false,
     inputs: [
       {
@@ -84,6 +252,11 @@ export const contractABI = [
     inputs: [
       {
         internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        internalType: "address",
         name: "to",
         type: "address",
       },
@@ -93,7 +266,7 @@ export const contractABI = [
         type: "uint256",
       },
     ],
-    name: "approve",
+    name: "transferFrom",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -245,19 +418,6 @@ export const contractABI = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "characterID",
-        type: "uint256",
-      },
-    ],
-    name: "mintCharacter",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "name",
     outputs: [
@@ -287,143 +447,6 @@ export const contractABI = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "safeTransferFrom",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes",
-        name: "data",
-        type: "bytes",
-      },
-    ],
-    name: "safeTransferFrom",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
-      {
-        internalType: "bool",
-        name: "approved",
-        type: "bool",
-      },
-    ],
-    name: "setApprovalForAll",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_baseURI",
-        type: "string",
-      },
-    ],
-    name: "setBaseURI",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "characterID",
-        type: "uint256",
-      },
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "elementalMagic",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "lightningStealth",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "elementalControl",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "timeAndSpace",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "celestialSpace",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "chaosEnergy",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "quantumEnigma",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct GalacticaCore.Character",
-        name: "character",
-        type: "tuple",
-      },
-    ],
-    name: "setCharacter",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -475,29 +498,6 @@ export const contractABI = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "transferFrom",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
 ];
