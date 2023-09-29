@@ -7,6 +7,7 @@ import { ethers, Signer } from "ethers";
 import * as sapphire from "@oasisprotocol/sapphire-paratime";
 import { useRecoilState } from "recoil";
 import { walletAddrAtom } from "../recoil/atom/walletAddr";
+import { toast } from "react-toastify";
 
 const ConnectButton = () => {
   const [_, setWalletAddr] = useRecoilState(walletAddrAtom);
@@ -21,6 +22,22 @@ const ConnectButton = () => {
       );
     } else {
       provider = sapphire.wrap(new ethers.BrowserProvider(window.ethereum));
+      let chain = (await provider.getNetwork()).chainId.toString();
+
+      if (parseInt(chain) != 23295) {
+        toast.error("Change network to Oasis Sapphire Testnet!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        return;
+      }
+
       signer = await provider.getSigner();
       let addr = await signer.getAddress();
       setWalletAddr(addr);

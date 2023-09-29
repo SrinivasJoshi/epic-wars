@@ -2,17 +2,23 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { walletAddrAtom } from "../recoil/atom/walletAddr";
 import { ICard } from "../types";
+import { getContractWithSigner } from "../utils/contractHelper";
+import { useNavigate } from "react-router-dom";
 
 export default function Card(props: ICard) {
   const [isLoading, setIsLoading] = useState(false);
   const { item, index, isSold } = props;
   const [walletAddr, _] = useRecoilState<string>(walletAddrAtom);
+  const navigate = useNavigate();
   let isConnected = walletAddr.length > 0;
 
   const getNft = async () => {
     setIsLoading(true);
-    // mint NFT
+    let contract = await getContractWithSigner();
+    let tx = await contract.mintCharacter(index);
+    await tx.wait();
     setIsLoading(false);
+    navigate("/lobby");
   };
 
   return (
