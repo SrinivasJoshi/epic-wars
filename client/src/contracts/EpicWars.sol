@@ -36,17 +36,17 @@ contract GalacticaCore is ERC721 {
     }
 
     function mintCharacter(uint256 characterID) external {
-        require(characterID>0 && characterID<31, "Error: No such character");
-        require(addressToID[msg.sender]==0,"Error: 1 NFT per address only");
+        require(addressToID[msg.sender] == 0, "Error: The Address already owns one NFT");
+        require(!_exists(characterID), "Error: Character is already minted");
+        _mint(msg.sender, characterID);
         status[characterID] = true; // true means the character is minted to some player
         addressToID[msg.sender] = characterID;
-        _mint(msg.sender, characterID);
     }
 
     function characterWar(address player1, address player2, uint256 characterID1, uint256 characterID2, uint256 attribute) external view watcherOnly returns (address winner) {
         require(ownerOf(characterID1) == player1,"Error: Mint the Character first");
         require(ownerOf(characterID2) == player2, "Error: Mint the Character first");
-        require(player1 != address(0) && player2 != address(0) && (characterID1 > 0 && characterID1 <= totalCharacters) && (characterID2 > 0 && characterID2 <= totalCharacters), "Error: Invalid Player details");
+        require(player1 != address(0) && player2 != address(0) && (characterID1 > 0 && characterID1 <= 30) && (characterID2 > 0 && characterID2 <= 30), "Error: Invalid Player details");
         require(attribute < 7, "Error: Attribute index is wrong");
 
         Character memory character1 = IdToCharacter[characterID1];
