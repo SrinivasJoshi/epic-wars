@@ -3,11 +3,14 @@ import { walletAddrAtom } from "../recoil/atom/walletAddr";
 import { getContractWithProvider } from "../utils/contractHelper";
 import Navbar from "./Navbar";
 import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 
 export default function Lobby() {
   const [walletAddr, _] = useRecoilState<string>(walletAddrAtom);
   const [nftId, setNftId] = useState(0);
   let isConnected = walletAddr.length > 0;
+  const navigate = useNavigate();
 
   const getPlayerInfo = async () => {
     let contract = await getContractWithProvider();
@@ -25,6 +28,17 @@ export default function Lobby() {
   useEffect(() => {
     if (nftId > 0) {
       // connect to socket
+      const socket = io("http://localhost:3001");
+      socket.on("connect", () => {
+        console.log(`Connected to server with socket id -> ${socket.id}`);
+      });
+
+      socket.on("match", ({ roomIdentifier }) => {
+        console.log(roomIdentifier);
+        navigate(`/room/${roomIdentifier}`, {
+          replace: true,
+        });
+      });
     }
   }, [nftId]);
 
