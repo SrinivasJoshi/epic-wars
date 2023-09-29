@@ -28,7 +28,7 @@ export default function Lobby() {
   useEffect(() => {
     if (nftId > 0) {
       // connect to socket
-      const socket = io("http://localhost:3001");
+      const socket = io("https://epic-wars-server.onrender.com");
       socket.on("connect", () => {
         console.log(`Connected to server with socket id -> ${socket.id}`);
       });
