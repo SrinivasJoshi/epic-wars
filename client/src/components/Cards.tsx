@@ -4,10 +4,12 @@ import { ICardData, ICardItem } from "../types/index";
 import { getContractWithProvider } from "../utils/contractHelper";
 import { useRecoilState } from "recoil";
 import { walletAddrAtom } from "../recoil/atom/walletAddr";
+import Loader from "./Loader";
 
 export default function Cards() {
   const [NftData, setNftData] = useState<ICardItem[]>([]);
   const [boolData, setBoolData] = useState<Boolean[]>([]);
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [walletAddr, _] = useRecoilState(walletAddrAtom);
 
   const getBoolArray = async () => {
@@ -49,8 +51,11 @@ export default function Cards() {
           item={item}
           index={i + 1}
           isSold={boolData ? boolData[i + 1] : false}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
       ))}
+      {isLoading && <Loader />}
     </div>
   );
 }

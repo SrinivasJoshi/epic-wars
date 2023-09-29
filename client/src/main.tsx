@@ -1,22 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import App from './App.tsx'
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import Root from "./root.tsx";
 import Lobby from "./components/Lobby.tsx";
+import Room from "./components/Room";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    children: [
-      {
-        path: "lobby",
-        element: <Lobby />,
-      },
-    ],
+  },
+  {
+    path: "/lobby",
+    element: <Lobby />,
+  },
+  {
+    path: "/room/:roomId",
+    element: <Room />,
   },
 ]);
 

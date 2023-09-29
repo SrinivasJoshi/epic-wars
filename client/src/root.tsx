@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Note from "./components/Note";
 import Cards from "./components/Cards";
 import { ToastContainer } from "react-toastify";
@@ -110,13 +110,17 @@ const Root = () => {
             Pick your NFT
           </h1>
 
+          <p className="text-2xl text-secondary font-bold font-Handjet mb-10">
+            Only 1 NFT per address
+          </p>
+
           <Note />
           <Cards />
         </section>
       </>
-      <div id="detail" className="">
+      {/* <div id="detail" className="">
         <Outlet />
-      </div>
+      </div> */}
       <ToastContainer />
     </div>
   );

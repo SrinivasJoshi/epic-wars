@@ -36,10 +36,11 @@ contract GalacticaCore is ERC721 {
     }
 
     function mintCharacter(uint256 characterID) external {
-        require(!_exists(characterID), "Error: Character is already minted");
-        _mint(msg.sender, characterID);
+        require(characterID>0 && characterID<31, "Error: No such character");
+        require(addressToID[msg.sender]==0,"Error: 1 NFT per address only");
         status[characterID] = true; // true means the character is minted to some player
         addressToID[msg.sender] = characterID;
+        _mint(msg.sender, characterID);
     }
 
     function characterWar(address player1, address player2, uint256 characterID1, uint256 characterID2, uint256 attribute) external view watcherOnly returns (address winner) {
