@@ -1,11 +1,25 @@
 import Navbar from "./components/Navbar";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Note from "./components/Note";
 import Cards from "./components/Cards";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Root = () => {
   return (
     <div className="flex flex-col">
+      <ToastContainer
+        position="top-right"
+        autoClose={4500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Navbar />
       <>
         <section className="bg-primary flex flex-col items-center justify-evenly py-10">
@@ -27,11 +41,11 @@ const Root = () => {
               <a href="#tag1">Mint NFT</a>
             </button>
 
-            <a href={"/lobby"}>
+            <Link to={"/lobby"}>
               <button className="ml-5 text-2xl font-bold bg-secondary px-2 py-1 text-primary rounded-md font-Handjet mt-11">
                 Duel Now
               </button>
-            </a>
+            </Link>
           </div>
         </section>
         <section className="bg-primary flex flex-col items-center justify-evenly py-10 font-Montserrat min-h-screen">
@@ -103,6 +117,7 @@ const Root = () => {
       <div id="detail" className="">
         <Outlet />
       </div>
+      <ToastContainer />
     </div>
   );
 };
