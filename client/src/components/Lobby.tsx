@@ -32,11 +32,12 @@ export default function Lobby() {
       socket.on("connect", () => {
         console.log(`Connected to server with socket id -> ${socket.id}`);
       });
-
+      // TODO : Add below nftId2:opponentNftId,player2:opponentAddr
       socket.on("match", ({ roomIdentifier }) => {
         console.log(roomIdentifier);
         navigate(`/room/${roomIdentifier}`, {
           replace: true,
+          // state:{nftId1: nftId,player1:walletAddr,nftId2:opponentNftId,player2:opponentAddr}
         });
       });
     }
