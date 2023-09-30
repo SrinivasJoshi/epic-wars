@@ -22,7 +22,7 @@ contract EpicWars is ERC721 {
         uint256 quantumEnigma;
     }
 
-    constructor() ERC721("EpicWars", "EWS") {
+    constructor() ERC721("Inter-Planetary Gambling", "GIP") {
         watcher = msg.sender;
     }
 
@@ -43,15 +43,18 @@ contract EpicWars is ERC721 {
         addressToID[msg.sender] = characterID;
     }
 
-    function characterWar(address player1, address player2,uint256 attribute) external view returns (address winner) {
-        require(addressToID[player1]!=0 && addressToID[player2]!=0,"Error : No NFT owned");
+    function characterWar(address player1, address player2, uint256 characterID1, uint256 characterID2, uint256 attribute) external view watcherOnly returns (address winner) {
+        require(ownerOf(characterID1) == player1,"Error: Mint the Character first");
+        require(ownerOf(characterID2) == player2, "Error: Mint the Character first");
+        require(player1 != address(0) && player2 != address(0) && (characterID1 > 0 && characterID1 <= 30) && (characterID2 > 0 && characterID2 <= 30), "Error: Invalid Player details");
         require(attribute < 7, "Error: Attribute index is wrong");
-
-        uint256 characterID1 = addressToID[player1];
-        uint256 characterID2 = addressToID[player2];
 
         Character memory character1 = IdToCharacter[characterID1];
         Character memory character2 = IdToCharacter[characterID2];
+
+        if(characterID1 == characterID2) {
+            return address(0); // both players chose the same NFT
+        }
 
         if(attribute == 0) {
             return character1.elementalMagic > character2.elementalMagic? player1: player2;
@@ -90,11 +93,7 @@ contract EpicWars is ERC721 {
         return baseURI;
     }
 
-    function getAttributes(address player) external view returns(Character memory){
-        uint256 characterId = addressToID[player];
-        require(characterId!=0,"Error : You don't own NFT");
-        require(ownerOf(characterId)==msg.sender,"Error : Only owner can access");
-        Character memory char = IdToCharacter[characterId];
-        return char;
+    function getCharacterFromID(uint256 characterID) external view returns (Character memory) {
+        return IdToCharacter[characterID];
     }
 }

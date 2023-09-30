@@ -1,4 +1,4 @@
-export const contractAddress = "0x3772940E03A01C781B4C87406CaDD09A157e526E";
+export const contractAddress = "0x7EF2e0048f5bAeDe046f6BF797943daF4ED8CB47";
 export const contractABI = [
   {
     inputs: [],
@@ -304,6 +304,16 @@ export const contractABI = [
       },
       {
         internalType: "uint256",
+        name: "characterID1",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "characterID2",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
         name: "attribute",
         type: "uint256",
       },
@@ -340,7 +350,26 @@ export const contractABI = [
   },
   {
     inputs: [],
-    name: "getAttributes",
+    name: "getBaseURI",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "characterID",
+        type: "uint256",
+      },
+    ],
+    name: "getCharacterFromID",
     outputs: [
       {
         components: [
@@ -383,19 +412,6 @@ export const contractABI = [
         internalType: "struct EpicWars.Character",
         name: "",
         type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getBaseURI",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
       },
     ],
     stateMutability: "view",
