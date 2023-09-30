@@ -29,9 +29,17 @@ export default function Lobby() {
     if (nftId > 0) {
       // connect to socket
       const socket = io("https://epic-wars-server.onrender.com");
+
       socket.on("connect", () => {
         console.log(`Connected to server with socket id -> ${socket.id}`);
+
+        socket.emit("add-queue", {
+          socketID: socket.id,
+          address: walletAddr,
+          nftID: nftId,
+        });
       });
+
       // TODO : Add below nftId2:opponentNftId,player2:opponentAddr
       socket.on("match", ({ roomIdentifier }) => {
         console.log(roomIdentifier);

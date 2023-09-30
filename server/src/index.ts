@@ -10,7 +10,10 @@ const io = require("socket.io")(server, {
   },
 });
 
-const waitingQueue:string[] = [];
+type PlayerObject = { socketID: ""; address: ""; nftID: "" };
+
+const waitingQueue: PlayerObject[] = [];
+waitingQueue.pop();
 
 // Function to handle matchmaking
 const handleMatchmaking = () => {
@@ -24,16 +27,22 @@ const handleMatchmaking = () => {
     io.to(player1).to(player2).emit("match", { roomIdentifier });
 
     console.log(
-      `Matched players: ${player1} and ${player2}\nRoom: ${roomIdentifier}`,
+      `Matched players: ${player1} and ${player2}\nRoom: ${roomIdentifier}`
     );
   }
 };
 
-io.on("connection", (socket:Socket) => {
+io.on("connection", (socket: Socket) => {
   console.log(`User connected: ${socket.id}`);
 
   // Add the connected player to the waiting queue
-  waitingQueue.push(socket.id);
+
+  io.on("add-queue", (playerObject: PlayerObject) => {
+    console.log(
+      `Socket ID: ${playerObject.socketID} Address: ${playerObject.address} NFTID: ${playerObject.nftID}`
+    );
+    waitingQueue.push(playerObject);
+  });
 
   // Handle matchmaking whenever a player connects
   handleMatchmaking();
@@ -42,7 +51,9 @@ io.on("connection", (socket:Socket) => {
     console.log(`User disconnected: ${socket.id}`);
 
     // Remove disconnected player from the waiting queue
-    const index = waitingQueue.indexOf(socket.id);
+    const index = waitingQueue.findIndex(
+      (player) => player.socketID === socket.id
+    );
     if (index !== -1) {
       waitingQueue.splice(index, 1);
     }
