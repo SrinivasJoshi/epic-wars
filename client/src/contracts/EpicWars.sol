@@ -94,6 +94,8 @@ contract EpicWars is ERC721 {
     }
 
     function getCharacterFromID(uint256 characterID) external view returns (Character memory) {
+        address _owner = ownerOf(characterID);
+        require(msg.sender == _owner, "Error: Not allowed to get attribute");
         return IdToCharacter[characterID];
     }
 }
