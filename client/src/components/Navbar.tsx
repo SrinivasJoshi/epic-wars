@@ -6,8 +6,10 @@ const Navbar = () => {
   const [walletAddr, _] = useRecoilState(walletAddrAtom);
 
   return (
-    <nav className="w-full flex justify-between items-center p-3 bg-primary fixed">
-      <p className="text-lg font-semibold text-white">Logo</p>
+    <nav className="w-full flex justify-between items-center p-4 bg-primary fixed">
+      <a href="/">
+        <img src="/images/logo.png" alt="Logo" className="w-24" />
+      </a>
       {walletAddr.length === 0 ? (
         <ConnectButton />
       ) : (
