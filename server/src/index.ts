@@ -27,11 +27,13 @@ const handleMatchmaking = () => {
     const matchData1 = {
       roomIdentifier: roomIdentifier,
       opponent: player2,
+      turnAddress: player1,
     };
 
     const matchData2 = {
       roomIdentifier: roomIdentifier,
       opponent: player1,
+      turnAddress: player1,
     };
 
     io.to(player1.socketID).emit("match", matchData1);
