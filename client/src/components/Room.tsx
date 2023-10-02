@@ -62,8 +62,9 @@ export default function Room() {
   useEffect(() => {
     const helperFunc = async () => {
       let ans = await getNFTData();
-      setPlayer1(ans[nftId1]);
-      setPlayer2(ans[_player2Object.nftID]);
+      console.log(ans);
+      setPlayer1(ans.data[nftId1]);
+      setPlayer2(ans.data[_player2Object.nftID]);
     };
 
     if (isConnected) {
@@ -127,7 +128,7 @@ export default function Room() {
           </div>
         </div>
 
-        {winner.length == 0 && turnAddress === walletAddr ? (
+        {winner.length === 0 && turnAddress === walletAddr && (
           <div className="flex flex-col items-center">
             <h3 className="text-2xl text-white font-Handjet mb-4">
               It's your turn : Pick one trait for the duel :{" "}
@@ -166,32 +167,30 @@ export default function Room() {
               </div>
             </div>
           </div>
-        ) : (
-          <div>
-            <h3 className="text-2xl font-bold font-Handjet text-white">
-              It's your opponent's turn to play
-            </h3>
-          </div>
         )}
 
-        {winner.length !== 0 && winner == walletAddr ? (
-          <h1 className="text-4xl text-secondary font-bold font-Handjet">
-            You won the Duel :)
-            <br />
-            <br />
-            Your trait value : {traitEntries[pickedTrait][1]}
-            <br />
-            Opponent's trait value : {opponentTraitVal}
-          </h1>
-        ) : (
-          <h1 className="text-4xl text-secondary font-bold">
-            You lost the Duel :( Better luck next time
-            <br />
-            <br />
-            Your trait value : {traitEntries[pickedTrait]?.[1]}
-            <br />
-            Opponent's trait value : {opponentTraitVal}
-          </h1>
+        {winner.length > 0 && (
+          <>
+            {winner == walletAddr ? (
+              <h1 className="text-4xl text-secondary font-bold font-Handjet">
+                You won the Duel
+                <br />
+                <br />
+                Your trait value : {traitEntries[pickedTrait][1]}
+                <br />
+                Opponent's trait value : {opponentTraitVal}
+              </h1>
+            ) : (
+              <h1 className="text-4xl text-secondary font-bold">
+                You lost the Duel, Better luck next time
+                <br />
+                <br />
+                Your trait value : {traitEntries[pickedTrait]?.[1]}
+                <br />
+                Opponent's trait value : {opponentTraitVal}
+              </h1>
+            )}
+          </>
         )}
       </section>
     </div>
