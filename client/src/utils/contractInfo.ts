@@ -1,4 +1,4 @@
-export const contractAddress = "0x298e2a199a71f7BCA57eb3445Cc5425c6B3F6217";
+export const contractAddress = "0xBf75EB6c76ab3D3f4F3350dEb2C0C252ea043E57";
 export const contractABI = [
   {
     inputs: [],
@@ -292,16 +292,6 @@ export const contractABI = [
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "player1",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "player2",
-        type: "address",
-      },
       {
         internalType: "uint256",
         name: "characterID1",

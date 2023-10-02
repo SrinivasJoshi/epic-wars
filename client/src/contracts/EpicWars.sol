@@ -43,18 +43,17 @@ contract EpicWars is ERC721 {
         addressToID[msg.sender] = characterID;
     }
 
-    function characterWar(address player1, address player2, uint256 characterID1, uint256 characterID2, uint256 attribute) external view watcherOnly returns (address winner) {
-        require(ownerOf(characterID1) == player1,"Error: Mint the Character first");
-        require(ownerOf(characterID2) == player2, "Error: Mint the Character first");
-        require(player1 != address(0) && player2 != address(0) && (characterID1 > 0 && characterID1 <= 30) && (characterID2 > 0 && characterID2 <= 30), "Error: Invalid Player details");
+    function characterWar(uint256 characterID1, uint256 characterID2, uint256 attribute) external view returns (address winner) {
+        address player1 = ownerOf(characterID1);
+        address player2 = ownerOf(characterID2);
+
+        // Issue with Oasis Sapphire Chain -> it changes the msg.sender 
+        // require(msg.sender==player1 || msg.sender == player2,"Error : Not the owner of NFT"); 
+        
         require(attribute < 7, "Error: Attribute index is wrong");
 
         Character memory character1 = IdToCharacter[characterID1];
         Character memory character2 = IdToCharacter[characterID2];
-
-        if(characterID1 == characterID2) {
-            return address(0); // both players chose the same NFT
-        }
 
         if(attribute == 0) {
             return character1.elementalMagic > character2.elementalMagic? player1: player2;
@@ -94,8 +93,10 @@ contract EpicWars is ERC721 {
     }
 
     function getCharacterFromID(uint256 characterID) external view returns (Character memory) {
-        address _owner = ownerOf(characterID);
-        require(msg.sender == _owner, "Error: Not allowed to get attribute");
+        // Issue with Oasis Sapphire Chain -> it changes the msg.sender 
+        // address _owner = _ownerOf(characterID);
+        // require(msg.sender == _owner, "Error: Not allowed to get attribute");
+        
         return IdToCharacter[characterID];
     }
 }
