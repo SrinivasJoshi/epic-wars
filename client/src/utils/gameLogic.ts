@@ -9,9 +9,13 @@ export const getWinner = async (
 ) => {
   //send message to server
   const socket = io("https://epic-wars-server.onrender.com");
-  socket.emit("share-attribute", {
-    socketIDopponent,
-    attribute: attributeNumber,
+  // const socket = io("http://localhost:3001");
+
+  socket.on("connect", () => {
+    socket.emit("share-attribute", {
+      socketIDopponent,
+      attribute: attributeNumber,
+    });
   });
 
   //send tx to blockchain for calculating winner

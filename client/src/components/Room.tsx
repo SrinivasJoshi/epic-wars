@@ -92,7 +92,9 @@ export default function Room() {
   useEffect(() => {
     if (isConnected) {
       const socket = io("https://epic-wars-server.onrender.com");
-      socket.on("share-attribute", ({ attribute }) => {
+      // const socket = io("http://localhost:3001");
+
+      socket.on("got-attribute", ({ attribute }) => {
         console.log("Got data from share-attribute!");
         console.log(attribute);
         setPickedTrait(attribute);
