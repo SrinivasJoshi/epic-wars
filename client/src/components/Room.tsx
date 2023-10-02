@@ -45,7 +45,7 @@ export default function Room() {
   useEffect(() => {
     const helperFunc = async () => {
       let array = await getPlayerAttributes(nftId1);
-      const data = array.map((element:BigInt) => Number(element));
+      const data = array.map((element: BigInt) => Number(element));
 
       const updatedTraits: Record<string, number> = {};
       Object.keys(traits).forEach((key, index) => {
@@ -130,44 +130,58 @@ export default function Room() {
           </div>
         </div>
 
-        {winner.length === 0 && turnAddress === walletAddr && (
+        {winner.length === 0 && (
           <div className="flex flex-col items-center">
-            <h3 className="text-2xl text-white font-Handjet mb-4">
-              It's your turn : Pick one trait for the duel :{" "}
-            </h3>
+            {turnAddress === walletAddr ? (
+              <>
+                <h3 className="text-2xl text-white font-Handjet mb-4">
+                  It's your turn : Pick one trait for the duel :{" "}
+                </h3>
 
-            <div className="flex flex-col items-center">
-              <div className="flex justify-center mb-3">
-                {traitEntries.slice(0, 3).map(([trait, value], i) => (
-                  <button
-                    key={trait}
-                    disabled={winner.length > 0 && walletAddr !== turnAddress}
-                    className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
-                    onClick={() => {
-                      setPickedTrait(i);
-                      submitToCalcWinner(i + 1);
-                    }}
-                  >
-                    {trait}: {value}
-                  </button>
-                ))}
+                <div className="flex flex-col items-center">
+                  <div className="flex justify-center mb-3">
+                    {traitEntries.slice(0, 3).map(([trait, value], i) => (
+                      <button
+                        key={trait}
+                        disabled={
+                          winner.length > 0 && walletAddr !== turnAddress
+                        }
+                        className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
+                        onClick={() => {
+                          setPickedTrait(i);
+                          submitToCalcWinner(i + 1);
+                        }}
+                      >
+                        {trait}: {value}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex justify-center">
+                    {traitEntries.slice(3, 7).map(([trait, value], i) => (
+                      <button
+                        key={trait}
+                        disabled={
+                          winner.length > 0 && walletAddr !== turnAddress
+                        }
+                        className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
+                        onClick={() => {
+                          setPickedTrait(i);
+                          submitToCalcWinner(i + 1);
+                        }}
+                      >
+                        {trait}: {value}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div>
+                <h3 className="text-2xl font-bold font-Handjet text-white">
+                  It's your opponent's turn to play
+                </h3>
               </div>
-              <div className="flex justify-center">
-                {traitEntries.slice(3, 7).map(([trait, value], i) => (
-                  <button
-                    key={trait}
-                    disabled={winner.length > 0 && walletAddr !== turnAddress}
-                    className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
-                    onClick={() => {
-                      setPickedTrait(i);
-                      submitToCalcWinner(i + 1);
-                    }}
-                  >
-                    {trait}: {value}
-                  </button>
-                ))}
-              </div>
-            </div>
+            )}
           </div>
         )}
 
