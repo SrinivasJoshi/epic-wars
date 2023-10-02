@@ -179,7 +179,9 @@ export default function Room() {
         )}
 
         {turnAddress !== walletAddr && pickedTrait && (
-          <h2>Your opponent Picked Trait : {traitEntries[pickedTrait][0]} </h2>
+          <h2 className="text-2xl text-secondary">
+            Your opponent Picked Trait : {traitEntries[pickedTrait][0]}{" "}
+          </h2>
         )}
 
         {winner.length > 0 && (
