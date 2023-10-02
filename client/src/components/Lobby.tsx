@@ -41,14 +41,20 @@ export default function Lobby() {
 
       // TODO : Add below nftId2:opponentNftId,player2:opponentAddr
       socket.on("match", (res) => {
-        const { roomIdentifier, opponent, turnAddress } = res;
+        const { roomIdentifier, opponent, turnAddress, nftId } = res;
 
         console.log(`Room ID: ${roomIdentifier}`);
         console.log(`Opponent Address: ${opponent}`);
         console.log(`It is ${turnAddress} turn`);
         navigate(`/room/${roomIdentifier}`, {
           replace: true,
-          // state:{nftId1: nftId,player1:walletAddr,nftId2:opponentNftId,player2:opponentAddr}
+          state: {
+            nftId1: nftId,
+            player1: walletAddr,
+            nftId2: nftId,
+            player2: opponent,
+            turnAddress,
+          },
         });
       });
     }
