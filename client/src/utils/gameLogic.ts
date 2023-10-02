@@ -5,11 +5,12 @@ export const getWinner = async (
   attributeNumber: Number,
   nftId1: Number,
   nftId2: Number,
+  socketIDopponent: string,
 ) => {
   //send message to server
   const socket = io("https://epic-wars-server.onrender.com");
-  socket.emit("traitPicked", {
-    socketID: socket.id,
+  socket.emit("share-attribute", {
+    socketID: socketIDopponent,
     trait: attributeNumber,
   });
 
@@ -35,19 +36,11 @@ export const getNFTData = async () => {
   }
 };
 
-export const getPlayerAttributes = async () => {
+export const getPlayerAttributes = async (nftID: Number) => {
   try {
     let contract = await getContractWithProvider();
-
-    let data = await contract.getAttributes();
+    let data = await contract.getCharacterFromID(nftID);
     return data;
-    //   const updatedTraits: Record<string, number> = {};
-    //   Object.keys(traits).forEach((key, index) => {
-    //     updatedTraits[key] = data[index];
-    //   });
-    //   setTraits(updatedTraits);
-    //   const entries = Object.entries(updatedTraits);
-    //   setTraitEntries(entries);
   } catch (error) {
     console.log(error);
   }

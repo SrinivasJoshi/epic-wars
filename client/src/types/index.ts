@@ -14,3 +14,9 @@ export interface ICard {
 export interface ICardData {
   data: ICardItem[];
 }
+
+export interface IPlayer2Object {
+  socketID: string;
+  address: string;
+  nftID: string;
+}

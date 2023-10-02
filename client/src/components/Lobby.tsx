@@ -9,13 +9,14 @@ import { useNavigate } from "react-router-dom";
 export default function Lobby() {
   const [walletAddr, _] = useRecoilState<string>(walletAddrAtom);
   const [nftId, setNftId] = useState(0);
-  let isConnected = walletAddr.length > 0;
+  const isConnected = walletAddr.length > 0;
   const navigate = useNavigate();
 
   const getPlayerInfo = async () => {
     let contract = await getContractWithProvider();
     let ans = await contract.getIDFromAddress(walletAddr);
     let _nftId = parseInt(ans.toString());
+    console.log(_nftId);
     setNftId(_nftId);
   };
 
@@ -40,7 +41,6 @@ export default function Lobby() {
         });
       });
 
-      // TODO : Add below nftId2:opponentNftId,player2:opponentAddr
       socket.on("match", (res) => {
         const { roomIdentifier, opponent, turnAddress } = res;
 
@@ -72,7 +72,11 @@ export default function Lobby() {
           {nftId === 0 ? (
             <p className="text-2xl text-myred font-Handjet text-center">
               Looks like you don't own any NFT. <br /> Click the logo and claim
-              one{" "}
+              one
+              <br />
+              OR
+              <br />
+              Wait till blockchain state updates
             </p>
           ) : (
             <img
