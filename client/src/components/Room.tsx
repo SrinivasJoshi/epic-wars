@@ -30,9 +30,10 @@ export default function Room() {
   const { state } = useLocation();
   const { nftId1, _player2Object, turnAddress } = state;
 
-  console.log(
+  console
+    .log
     // `NFT ID: ${nftId1}\n Player 1 Address ${_player1}\n Player 2 Object ${_player2Object}\n Turn Address ${turnAddress}`,
-  );
+    ();
 
   // Set attribute values to 0
   useEffect(() => {
@@ -87,9 +88,9 @@ export default function Room() {
   useEffect(() => {
     if (isConnected) {
       const socket = io("https://epic-wars-server.onrender.com");
-      socket.on('share-attribute',({attribute })=>{
-        
-      })
+      socket.on("share-attribute", ({ attribute }) => {
+        setPickedTrait(attribute);
+      });
     }
   }, [isConnected]);
 
@@ -137,7 +138,7 @@ export default function Room() {
                 {traitEntries.slice(0, 3).map(([trait, value], i) => (
                   <button
                     key={trait}
-                    disabled={winner.length > 0}
+                    disabled={winner.length > 0 && walletAddr !== turnAddress}
                     className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
                     onClick={() => {
                       setPickedTrait(i);
@@ -152,7 +153,7 @@ export default function Room() {
                 {traitEntries.slice(3, 7).map(([trait, value], i) => (
                   <button
                     key={trait}
-                    disabled={winner.length > 0}
+                    disabled={winner.length > 0 && walletAddr !== turnAddress}
                     className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
                     onClick={() => {
                       setPickedTrait(i);
@@ -187,7 +188,7 @@ export default function Room() {
             You lost the Duel :( Better luck next time
             <br />
             <br />
-            Your trait value : {traitEntries[pickedTrait][1]}
+            Your trait value : {traitEntries[pickedTrait]?.[1]}
             <br />
             Opponent's trait value : {opponentTraitVal}
           </h1>
