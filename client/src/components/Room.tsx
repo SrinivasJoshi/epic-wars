@@ -44,7 +44,9 @@ export default function Room() {
   // Get player attribute values
   useEffect(() => {
     const helperFunc = async () => {
-      let data = await getPlayerAttributes(nftId1);
+      let array = await getPlayerAttributes(nftId1);
+      const data = array.map((element:BigInt) => Number(element));
+
       const updatedTraits: Record<string, number> = {};
       Object.keys(traits).forEach((key, index) => {
         updatedTraits[key] = data[index];
