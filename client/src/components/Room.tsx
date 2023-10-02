@@ -12,8 +12,8 @@ export default function Room() {
   const [winner, setWinner] = useState("");
   const [player1, setPlayer1] = useState<ICardItem>();
   const [player2, setPlayer2] = useState<ICardItem>();
-  const [opponentTraitVal, setOpponentTraitVal] = useState(-1);
-  const [pickedTrait, setPickedTrait] = useState(-1);
+  const [opponentTraitVal, setOpponentTraitVal] = useState(0);
+  const [pickedTrait, setPickedTrait] = useState(0);
   const [traitEntries, setTraitEntries] = useState<[string, number][]>([]);
   const [traits, setTraits] = useState<Record<string, number>>({
     "Elemental Magic": 0,
@@ -93,6 +93,8 @@ export default function Room() {
     if (isConnected) {
       const socket = io("https://epic-wars-server.onrender.com");
       socket.on("share-attribute", ({ attribute }) => {
+        console.log("Got data from share-attribute!");
+        console.log(attribute);
         setPickedTrait(attribute);
       });
     }
@@ -133,55 +135,52 @@ export default function Room() {
 
         {winner.length === 0 && (
           <div className="flex flex-col items-center">
-              <>
-                <h3 className="text-2xl text-white font-Handjet mb-4">
-                  {turnAddress === walletAddr ? "It's your turn : Pick one trait for the duel :" : "It's your opponent's turn to play"}
-                </h3>
+            <>
+              <h3 className="text-2xl text-white font-Handjet mb-4">
+                {turnAddress === walletAddr
+                  ? "It's your turn : Pick one trait for the duel :"
+                  : "It's your opponent's turn to play"}
+              </h3>
 
-                <div className="flex flex-col items-center">
-                  <div className="flex justify-center mb-3">
-                    {traitEntries.slice(0, 3).map(([trait, value], i) => (
-                      <button
-                        key={trait}
-                        disabled={
-                          winner.length > 0 && walletAddr !== turnAddress
-                        }
-                        className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
-                        onClick={() => {
-                          setPickedTrait(i);
-                          submitToCalcWinner(i);
-                        }}
-                      >
-                        {trait}: {value}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="flex justify-center">
-                    {traitEntries.slice(3, 7).map(([trait, value], i) => (
-                      <button
-                        key={trait}
-                        disabled={
-                          winner.length > 0 && walletAddr !== turnAddress
-                        }
-                        className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
-                        onClick={() => {
-                          setPickedTrait(i);
-                          submitToCalcWinner(i);
-                        }}
-                      >
-                        {trait}: {value}
-                      </button>
-                    ))}
-                  </div>
+              <div className="flex flex-col items-center">
+                <div className="flex justify-center mb-3">
+                  {traitEntries.slice(0, 3).map(([trait, value], i) => (
+                    <button
+                      key={trait}
+                      disabled={winner.length > 0 || walletAddr !== turnAddress}
+                      className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
+                      onClick={() => {
+                        setPickedTrait(i);
+                        submitToCalcWinner(i);
+                      }}
+                    >
+                      {trait}: {value}
+                    </button>
+                  ))}
                 </div>
-              </>
+                <div className="flex justify-center">
+                  {traitEntries.slice(3, 7).map(([trait, value], i) => (
+                    <button
+                      key={trait}
+                      disabled={winner.length > 0 || walletAddr !== turnAddress}
+                      className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
+                      onClick={() => {
+                        setPickedTrait(i);
+                        submitToCalcWinner(i);
+                      }}
+                    >
+                      {trait}: {value}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </>
           </div>
         )}
 
-        {
-          turnAddress!==walletAddr && pickedTrait && 
+        {turnAddress !== walletAddr && pickedTrait && (
           <h2>Your opponent Picked Trait : {traitEntries[pickedTrait][0]} </h2>
-        }
+        )}
 
         {winner.length > 0 && (
           <>
@@ -190,7 +189,7 @@ export default function Room() {
                 You won the Duel
                 <br />
                 <br />
-                Your trait value : {traitEntries[pickedTrait][1]}
+                Your trait value : {traitEntries[pickedTrait]?.[1]}
                 <br />
                 Opponent's trait value : {opponentTraitVal}
               </h1>
@@ -199,7 +198,7 @@ export default function Room() {
                 You lost the Duel, Better luck next time
                 <br />
                 <br />
-                Your trait value : {traitEntries[pickedTrait]?.[1]}
+                Your trait value : {traitEntries?.[pickedTrait]?.[1]}
                 <br />
                 Opponent's trait value : {opponentTraitVal}
               </h1>
