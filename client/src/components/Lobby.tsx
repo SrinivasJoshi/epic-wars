@@ -30,6 +30,7 @@ export default function Lobby() {
       // connect to socket
       const socket = io("https://epic-wars-server.onrender.com");
       // const socket = io("http://localhost:3001");
+
       socket.on("connect", () => {
         console.log(`Connected to server with socket id -> ${socket.id}`);
         socket.emit("add-queue", {
@@ -41,18 +42,18 @@ export default function Lobby() {
 
       // TODO : Add below nftId2:opponentNftId,player2:opponentAddr
       socket.on("match", (res) => {
-        const { roomIdentifier, opponent, turnAddress, nftId } = res;
+        const { roomIdentifier, opponent, turnAddress } = res;
 
         console.log(`Room ID: ${roomIdentifier}`);
-        console.log(`Opponent Address: ${opponent}`);
+        console.log(`Opponent Address: ${opponent.address}`);
         console.log(`It is ${turnAddress} turn`);
+
         navigate(`/room/${roomIdentifier}`, {
           replace: true,
           state: {
             nftId1: nftId,
-            player1: walletAddr,
-            nftId2: nftId,
-            player2: opponent,
+            _player1: walletAddr,
+            _player2Object: opponent,
             turnAddress,
           },
         });

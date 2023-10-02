@@ -25,9 +25,12 @@ export default function Room() {
 
   let isConnected = walletAddr.length > 0;
   const { roomId } = useParams();
-  // const { state } = useLocation();
-  // const { nftId1, nftId2, player1Addr, player2Addr, turnAddress } = state;
-  let turnAddress = '';
+  const { state } = useLocation();
+  const { nftId1, _player1, _player2Object, turnAddress } = state;
+
+  console.log(
+    `NFT ID: ${nftId1}\n Player 1 Address ${_player1}\n Player 2 Object ${_player2Object}\n Turn Address ${turnAddress}`,
+  );
 
   // Set attribute values to 0
   useEffect(() => {
@@ -57,7 +60,7 @@ export default function Room() {
     const helperFunc = async () => {
       let ans = await getNFTData();
       setPlayer1(ans[nftId1]);
-      setPlayer2(ans[nftId2]);
+      setPlayer2(ans[_player2Object.nftID]);
     };
 
     if (isConnected) {
@@ -73,13 +76,11 @@ export default function Room() {
 
   // Logic : listening for traitPicked event
   useEffect(() => {
-    if(isConnected){
-
+    if (isConnected) {
     }
-  }, [isConnected])
-  
-  // Logic : Share the trait values after winning/losing
+  }, [isConnected]);
 
+  // Logic : Share the trait values after winning/losing
 
   return (
     <div>
