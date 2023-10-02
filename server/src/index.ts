@@ -60,6 +60,11 @@ io.on("connection", (socket: Socket) => {
     handleMatchmaking();
   });
 
+  // Shares the attribute value with the socketID passed
+  socket.on("share-attribute", ({ socketIDopponent, attribute }) => {
+    io.to(socketIDopponent).emit(attribute);
+  });
+
   socket.on("disconnect", () => {
     console.log(`User disconnected: ${socket.id}`);
 
