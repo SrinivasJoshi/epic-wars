@@ -12,8 +12,8 @@ export default function Room() {
   const [winner, setWinner] = useState("");
   const [player1, setPlayer1] = useState<ICardItem>();
   const [player2, setPlayer2] = useState<ICardItem>();
-  const [opponentTraitVal, setOpponentTraitVal] = useState(0);
-  const [pickedTrait, setPickedTrait] = useState(0);
+  const [opponentTraitVal, setOpponentTraitVal] = useState(-1);
+  const [pickedTrait, setPickedTrait] = useState(-1);
   const [traitEntries, setTraitEntries] = useState<[string, number][]>([]);
   const [traits, setTraits] = useState<Record<string, number>>({
     "Elemental Magic": 0,
@@ -83,7 +83,8 @@ export default function Room() {
       _player2Object.socketID,
     );
     let val = await getPlayerAttributes(_player2Object.nftID);
-    setOpponentTraitVal(val);
+    const data = val.map((element: BigInt) => Number(element));
+    setOpponentTraitVal(data[pickedTrait]);
     setWinner(winnerAddress);
   };
 
@@ -132,10 +133,9 @@ export default function Room() {
 
         {winner.length === 0 && (
           <div className="flex flex-col items-center">
-            {turnAddress === walletAddr ? (
               <>
                 <h3 className="text-2xl text-white font-Handjet mb-4">
-                  It's your turn : Pick one trait for the duel :{" "}
+                  {turnAddress === walletAddr ? "It's your turn : Pick one trait for the duel :" : "It's your opponent's turn to play"}
                 </h3>
 
                 <div className="flex flex-col items-center">
@@ -149,7 +149,7 @@ export default function Room() {
                         className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
                         onClick={() => {
                           setPickedTrait(i);
-                          submitToCalcWinner(i + 1);
+                          submitToCalcWinner(i);
                         }}
                       >
                         {trait}: {value}
@@ -166,7 +166,7 @@ export default function Room() {
                         className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
                         onClick={() => {
                           setPickedTrait(i);
-                          submitToCalcWinner(i + 1);
+                          submitToCalcWinner(i);
                         }}
                       >
                         {trait}: {value}
@@ -175,15 +175,13 @@ export default function Room() {
                   </div>
                 </div>
               </>
-            ) : (
-              <div>
-                <h3 className="text-2xl font-bold font-Handjet text-white">
-                  It's your opponent's turn to play
-                </h3>
-              </div>
-            )}
           </div>
         )}
+
+        {
+          turnAddress!==walletAddr && pickedTrait && 
+          <h2>Your opponent Picked Trait : {traitEntries[pickedTrait][0]} </h2>
+        }
 
         {winner.length > 0 && (
           <>
