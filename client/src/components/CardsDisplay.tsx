@@ -20,8 +20,8 @@ export default function CardsDisplay(props: ICardsDisplay) {
   useEffect(() => {
     const helperFunc = async () => {
       let ans = await getNFTData();
-      setPlayer1(ans.data[nftId1]);
-      setPlayer2(ans.data[nftId2]);
+      setPlayer1({name:ans.data[nftId1-1].name,imageUrl:''});
+      setPlayer2({name:ans.data[nftId2-1].name,imageUrl:''});
     };
 
     if (isConnected) {

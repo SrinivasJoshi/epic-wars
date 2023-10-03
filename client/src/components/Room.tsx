@@ -112,7 +112,7 @@ export default function Room() {
           <Confetti
           width={width}
           height={height}
-          color="#14BB00"
+          colors={["#14BB00"]}
           opacity={0.7}
         />
         }
