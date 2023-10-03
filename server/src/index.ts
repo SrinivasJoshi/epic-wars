@@ -1,16 +1,21 @@
 import express from "express";
 import http from "http";
-import { Socket } from "socket.io";
+import { Server, Socket } from "socket.io";
+import { ClientToServerEvents, PlayerObject, ServerToClientEvents } from "./types";
 
 const app = express();
 const server = http.createServer(app);
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "*",
-  },
-});
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: "*",
+//   },
+// });
 
-type PlayerObject = { socketID: ""; address: ""; nftID: "" };
+const io = new Server<ServerToClientEvents,ClientToServerEvents>(server,{
+  cors:{
+    origin:"*"
+  }
+});
 
 const waitingQueue: PlayerObject[] = [];
 waitingQueue.pop();

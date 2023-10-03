@@ -3,8 +3,8 @@ import { walletAddrAtom } from "../recoil/atom/walletAddr";
 import { getContractWithProvider } from "../utils/contractHelper";
 import Navbar from "./Navbar";
 import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
+import { connectSocket } from "../utils/socketHelper";
 
 export default function Lobby() {
   const [walletAddr, _] = useRecoilState<string>(walletAddrAtom);
@@ -29,15 +29,14 @@ export default function Lobby() {
   useEffect(() => {
     if (nftId > 0) {
       // connect to socket
-      const socket = io("https://epic-wars-server.onrender.com");
-      // const socket = io("http://localhost:3001");
+      const socket = connectSocket();
 
       socket.on("connect", () => {
         console.log(`Connected to server with socket id -> ${socket.id}`);
         socket.emit("add-queue", {
           socketID: socket.id,
           address: walletAddr,
-          nftID: nftId,
+          nftID: nftId.toString(),
         });
       });
 
