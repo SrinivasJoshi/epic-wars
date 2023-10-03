@@ -5,10 +5,12 @@ interface IResultDisplay {
   walletAddr: string;
   traitValue: number;
   opponentTraitValue: number;
+  traitNames : { [key: number]: string } 
+  pickedTrait:number
 }
 
 export default function ResultDisplay(props: IResultDisplay) {
-  const { winner, walletAddr, traitValue, opponentTraitValue } = props;
+  const { winner, walletAddr, traitValue, opponentTraitValue,traitNames,pickedTrait } = props;
   return (
     <>
       {winner.length > 0 && (
@@ -19,11 +21,11 @@ export default function ResultDisplay(props: IResultDisplay) {
               You won the Duel
             </h1>
             <p className="text-2xl text-center font-bold font-Handjet">
-              Your trait value : {traitValue}
+              Your {traitNames[pickedTrait]} value : {traitValue}
              </p> 
 
            <p className="text-2xl text-center font-bold font-Handjet">
-           Opponent's trait value : {opponentTraitValue}
+           Opponent's {traitNames[pickedTrait]} value : {opponentTraitValue}
            </p>
            </div>) : 
            (
@@ -32,11 +34,11 @@ export default function ResultDisplay(props: IResultDisplay) {
               You lost the Duel, Better luck next time
             </h1>
             <p className="text-3xl text-center font-bold font-Handjet">
-              Your trait value : {traitValue}
+              Your {traitNames[pickedTrait]} value : {traitValue}
              </p> 
 
            <p className="text-3xl text-center font-bold font-Handjet">
-           Opponent's trait value : {opponentTraitValue}
+           Opponent's {traitNames[pickedTrait]} value : {opponentTraitValue}
            </p>
             </div>
           )}

@@ -4,6 +4,8 @@ import { useRecoilState } from "recoil";
 import { walletAddrAtom } from "../recoil/atom/walletAddr";
 import { getPlayerAttributes, getWinner } from "../utils/gameLogic";
 import { connectSocket } from "../utils/socketHelper";
+import Confetti from 'react-confetti';
+import useWindowSize from 'react-use/lib/useWindowSize'
 import CardsDisplay from "./CardsDisplay";
 import Navbar from "./Navbar";
 import ResultDisplay from "./ResultDisplay";
@@ -31,6 +33,7 @@ export default function Room() {
   const { roomId } = useParams();
   const { state } = useLocation();
   const { nftId1, _player2Object, turnAddress } = state;
+  const { width, height } = useWindowSize()
 
   // Logic : Submit to calculate winner of duel
   const submitToCalcWinner = async (attributeNumber: number,isSendToServer:Boolean) => {
@@ -105,11 +108,22 @@ export default function Room() {
           </h2>
         )}
 
+        { winner == walletAddr &&
+          <Confetti
+          width={width}
+          height={height}
+          color="#14BB00"
+          opacity={0.7}
+        />
+        }
+
         <ResultDisplay
           winner={winner}
           walletAddr={walletAddr}
           traitValue={traitValues[pickedTrait]}
           opponentTraitValue={opponentTraitVal}
+          traitNames={traitNames}
+          pickedTrait={pickedTrait}
         />
         {loading && <Loader />}
       </section>
