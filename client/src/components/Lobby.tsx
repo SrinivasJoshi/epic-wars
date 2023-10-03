@@ -16,7 +16,6 @@ export default function Lobby() {
     let contract = await getContractWithProvider();
     let ans = await contract.getIDFromAddress(walletAddr);
     let _nftId = parseInt(ans.toString());
-    console.log(_nftId);
     setNftId(_nftId);
   };
 
@@ -42,11 +41,6 @@ export default function Lobby() {
 
       socket.on("match", (res) => {
         const { roomIdentifier, opponent, turnAddress } = res;
-
-        console.log(`Room ID: ${roomIdentifier}`);
-        console.log(`Opponent Address: ${opponent.address}`);
-        console.log(`It is ${turnAddress} turn`);
-
         navigate(`/room/${roomIdentifier}`, {
           replace: true,
           state: {

@@ -20,7 +20,6 @@ export default function CardsDisplay(props: ICardsDisplay) {
   useEffect(() => {
     const helperFunc = async () => {
       let ans = await getNFTData();
-      console.log(ans);
       setPlayer1(ans.data[nftId1]);
       setPlayer2(ans.data[nftId2]);
     };

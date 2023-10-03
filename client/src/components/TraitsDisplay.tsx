@@ -9,7 +9,7 @@ interface ITraitsDisplay {
   traitValues:number[],
   setTraitValues:React.Dispatch<React.SetStateAction<number[]>>
   setPickedTrait: React.Dispatch<React.SetStateAction<number>>;
-  submitToCalcWinner: (attributeNumber: number, isSendToServer: Boolean, _pickedTrait?: number) => Promise<void>
+  submitToCalcWinner: (attributeNumber: number, isSendToServer: Boolean) => Promise<void>
 }
 
 export default function TraitsDisplay(props: ITraitsDisplay) {

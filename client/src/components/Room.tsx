@@ -8,10 +8,12 @@ import CardsDisplay from "./CardsDisplay";
 import Navbar from "./Navbar";
 import ResultDisplay from "./ResultDisplay";
 import TraitsDisplay from "./TraitsDisplay";
+import Loader from "./Loader";
 
 export default function Room() {
   const [walletAddr, _] = useRecoilState(walletAddrAtom);
   const [winner, setWinner] = useState("");
+  const [loading, setLoading] = useState(false);
   const [opponentTraitVal, setOpponentTraitVal] = useState<number>(0);
   const [pickedTrait, setPickedTrait] = useState<number>(-1);
   const [traitValues, setTraitValues] = useState<number[]>([]);
@@ -31,7 +33,8 @@ export default function Room() {
   const { nftId1, _player2Object, turnAddress } = state;
 
   // Logic : Submit to calculate winner of duel
-  const submitToCalcWinner = async (attributeNumber: number,isSendToServer:Boolean,_pickedTrait?:number) => {
+  const submitToCalcWinner = async (attributeNumber: number,isSendToServer:Boolean) => {
+    setLoading(true);
     let winnerAddress = await getWinner(
       attributeNumber,
       nftId1,
@@ -48,6 +51,7 @@ export default function Room() {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
 
@@ -57,8 +61,6 @@ export default function Room() {
     if (isConnected) {
       const socket = connectSocket();
       socket.on("got-attribute", (attribute) => {
-        console.log("Got data from share-attribute!");
-        console.log(attribute);
         setPickedTrait(attribute);
         submitToCalcWinner(attribute,false);
       });
@@ -98,7 +100,7 @@ export default function Room() {
         )}
 
         {turnAddress !== walletAddr && pickedTrait > -1 && (
-          <h2 className="text-2xl text-secondary">
+          <h2 className="text-2xl text-white font-Josefin">
             Your opponent Picked Trait : {traitNames[pickedTrait]}
           </h2>
         )}
@@ -109,6 +111,7 @@ export default function Room() {
           traitValue={traitValues[pickedTrait]}
           opponentTraitValue={opponentTraitVal}
         />
+        {loading && <Loader />}
       </section>
     </div>
   );
