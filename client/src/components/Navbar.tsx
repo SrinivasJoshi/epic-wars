@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className="w-full flex justify-between items-center p-4 bg-primary fixed">
       <a href="/">
-        <img src="/images/logo.png" alt="Logo" className="w-24" />
+        <img src="/images/logo.png" alt="Logo" className="w-40" />
       </a>
       {walletAddr.length === 0 ? (
         <ConnectButton />
