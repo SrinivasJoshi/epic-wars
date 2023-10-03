@@ -43,7 +43,7 @@ export default function Room() {
     try {
       let val = await getPlayerAttributes(_player2Object.nftID);
       const data:number[] = val.map((element: BigInt) => Number(element));
-      setOpponentTraitVal(data[_pickedTrait ?? pickedTrait]);
+      setOpponentTraitVal(data[attributeNumber]);
       setWinner(winnerAddress);
     } catch (error) {
       console.log(error);
@@ -60,7 +60,7 @@ export default function Room() {
         console.log("Got data from share-attribute!");
         console.log(attribute);
         setPickedTrait(attribute);
-        submitToCalcWinner(attribute,false,attribute);
+        submitToCalcWinner(attribute,false);
       });
     }
   }, [isConnected]);
