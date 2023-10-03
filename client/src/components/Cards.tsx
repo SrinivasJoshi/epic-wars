@@ -45,7 +45,6 @@ export default function Cards() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
       {NftData.map((item: ICardItem, i) => (
-        // TODO:change i+1 to i after new images
         <Card
           key={i}
           item={item}

@@ -39,7 +39,7 @@ export default function Card(props: ICard) {
   return (
     <div className="bg-zinc-950 p-4 text-center rounded-lg">
       <img
-        src={`https://brown-written-gayal-909.mypinata.cloud/ipfs/QmdQYeMhzD2LocJMErzFvTLA64ikC6Ebz6saWBddZvbq6c/${index}.png`}
+        src={`https://brown-written-gayal-909.mypinata.cloud/ipfs/QmQFXnA8fFFg9EGcRNPU6ERJHyPdKzpkAkUjUAwBEuE8Nb/${index}.png`}
         alt="Image"
         className="w-72 h-72 mx-auto mb-4"
       />

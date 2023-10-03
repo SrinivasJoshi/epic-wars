@@ -37,7 +37,7 @@ export default function CardsDisplay(props: ICardsDisplay) {
       <div className="flex items-center">
         <div className="flex flex-col items-center">
           <img
-            src={`https://brown-written-gayal-909.mypinata.cloud/ipfs/QmdQYeMhzD2LocJMErzFvTLA64ikC6Ebz6saWBddZvbq6c/${nftId1}.png`}
+            src={`https://brown-written-gayal-909.mypinata.cloud/ipfs/QmQFXnA8fFFg9EGcRNPU6ERJHyPdKzpkAkUjUAwBEuE8Nb/${nftId1}.png`}
             alt="Image1"
             className="mb-3 w-64 rounded-sm"
           />
@@ -50,7 +50,7 @@ export default function CardsDisplay(props: ICardsDisplay) {
         </h2>
         <div className="flex flex-col items-center">
           <img
-            src={`https://brown-written-gayal-909.mypinata.cloud/ipfs/QmdQYeMhzD2LocJMErzFvTLA64ikC6Ebz6saWBddZvbq6c/${nftId2}.png`}
+            src={`https://brown-written-gayal-909.mypinata.cloud/ipfs/QmQFXnA8fFFg9EGcRNPU6ERJHyPdKzpkAkUjUAwBEuE8Nb/${nftId2}.png`}
             alt="Image1"
             className="mb-3 w-64 rounded-sm"
           />
