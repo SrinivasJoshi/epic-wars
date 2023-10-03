@@ -7,6 +7,7 @@ interface IResultDisplay {
 
 export default function ResultDisplay(props: IResultDisplay) {
   const { winner, walletAddr, traitValue, opponentTraitValue } = props;
+  console.log(props);
   return (
     <>
       {winner.length > 0 && (

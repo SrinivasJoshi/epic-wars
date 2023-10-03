@@ -12,8 +12,8 @@ import TraitsDisplay from "./TraitsDisplay";
 export default function Room() {
   const [walletAddr, _] = useRecoilState(walletAddrAtom);
   const [winner, setWinner] = useState("");
-  const [opponentTraitVal, setOpponentTraitVal] = useState(0);
-  const [pickedTrait, setPickedTrait] = useState(-1);
+  const [opponentTraitVal, setOpponentTraitVal] = useState<number>(0);
+  const [pickedTrait, setPickedTrait] = useState<number>(-1);
   const [traitValues, setTraitValues] = useState<number[]>([]);
   const traitNames:{ [key: number]: string }  = {
     0: "Elemental Magic",
@@ -31,7 +31,7 @@ export default function Room() {
   const { nftId1, _player2Object, turnAddress } = state;
 
   // Logic : Submit to calculate winner of duel
-  const submitToCalcWinner = async (attributeNumber: number,isSendToServer:Boolean) => {
+  const submitToCalcWinner = async (attributeNumber: number,isSendToServer:Boolean,_pickedTrait?:number) => {
     let winnerAddress = await getWinner(
       attributeNumber,
       nftId1,
@@ -43,23 +43,24 @@ export default function Room() {
     try {
       let val = await getPlayerAttributes(_player2Object.nftID);
       const data:number[] = val.map((element: BigInt) => Number(element));
-      setOpponentTraitVal(data[pickedTrait]);
+      setOpponentTraitVal(data[_pickedTrait ?? pickedTrait]);
       setWinner(winnerAddress);
     } catch (error) {
       console.log(error);
     }
   };
 
+
+
   // Logic : listening for traitPicked event
   useEffect(() => {
     if (isConnected) {
       const socket = connectSocket();
-
       socket.on("got-attribute", (attribute) => {
         console.log("Got data from share-attribute!");
         console.log(attribute);
         setPickedTrait(attribute);
-        submitToCalcWinner(attribute,false);
+        submitToCalcWinner(attribute,false,attribute);
       });
     }
   }, [isConnected]);

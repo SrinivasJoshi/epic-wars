@@ -9,7 +9,7 @@ interface ITraitsDisplay {
   traitValues:number[],
   setTraitValues:React.Dispatch<React.SetStateAction<number[]>>
   setPickedTrait: React.Dispatch<React.SetStateAction<number>>;
-  submitToCalcWinner: (attributeNumber: number, isSendToServer: Boolean) => Promise<void>
+  submitToCalcWinner: (attributeNumber: number, isSendToServer: Boolean, _pickedTrait?: number) => Promise<void>
 }
 
 export default function TraitsDisplay(props: ITraitsDisplay) {
@@ -45,7 +45,7 @@ export default function TraitsDisplay(props: ITraitsDisplay) {
           className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
           onClick={() => {
             setPickedTrait(0);
-            submitToCalcWinner(0,true);
+            submitToCalcWinner(0,true,0);
           }}
         >
           Elemental Magic : {traitValues[0]}
@@ -55,7 +55,7 @@ export default function TraitsDisplay(props: ITraitsDisplay) {
           className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
           onClick={() => {
             setPickedTrait(1);
-            submitToCalcWinner(1,true);
+            submitToCalcWinner(1,true,1);
           }}
         >
           Lightning Stealth : {traitValues[1]}
@@ -65,7 +65,7 @@ export default function TraitsDisplay(props: ITraitsDisplay) {
           className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
           onClick={() => {
             setPickedTrait(2);
-            submitToCalcWinner(2,true);
+            submitToCalcWinner(2,true,2);
           }}
         >
           Elemental Control : {traitValues[2]}
@@ -77,7 +77,7 @@ export default function TraitsDisplay(props: ITraitsDisplay) {
           className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
           onClick={() => {
             setPickedTrait(3);
-            submitToCalcWinner(3,true);
+            submitToCalcWinner(3,true,3);
           }}
         >
           Time and Space : {traitValues[3]}
@@ -88,7 +88,7 @@ export default function TraitsDisplay(props: ITraitsDisplay) {
           className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
           onClick={() => {
             setPickedTrait(4);
-            submitToCalcWinner(4,true);
+            submitToCalcWinner(4,true,4);
           }}
         >
           Celestial Space : {traitValues[4]}
@@ -99,7 +99,7 @@ export default function TraitsDisplay(props: ITraitsDisplay) {
           className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
           onClick={() => {
             setPickedTrait(5);
-            submitToCalcWinner(5,true);
+            submitToCalcWinner(5,true,5);
           }}
         >
           Chaos Energy : {traitValues[5]}
@@ -110,7 +110,7 @@ export default function TraitsDisplay(props: ITraitsDisplay) {
           className="bg-secondary text-primary rounded-md px-4 py-2 mx-2 font-bold font-Montserrat disabled:cursor-not-allowed"
           onClick={() => {
             setPickedTrait(6);
-            submitToCalcWinner(6,true);
+            submitToCalcWinner(6,true,6);
           }}
         >
           Quantum Enigma : {traitValues[6]}
