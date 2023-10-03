@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 interface IResultDisplay {
   winner: string;
   walletAddr: string;
@@ -46,8 +46,8 @@ export default function ResultDisplay(props: IResultDisplay) {
                 className="bg-secondary px-2 py-1 text-primary font-bold rounded-md"
 
           >
-          {/* <a href='https://epic-wars.vercel.app/lobby'>Go Back</a> */}
-          <Link to={'/lobby'}>Go Back</Link>
+          <a href='https://epic-wars.vercel.app/lobby'>Go Back</a>
+          {/* <Link to={'/lobby'}>Go Back</Link> */}
           </button>
         </>
       )}
