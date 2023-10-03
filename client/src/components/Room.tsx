@@ -31,18 +31,18 @@ export default function Room() {
   const { nftId1, _player2Object, turnAddress } = state;
 
   // Logic : Submit to calculate winner of duel
-  const submitToCalcWinner = async (attributeNumber: number) => {
+  const submitToCalcWinner = async (attributeNumber: number,isSendToServer:Boolean) => {
     let winnerAddress = await getWinner(
       attributeNumber,
       nftId1,
       _player2Object.nftID,
       _player2Object.socketID,
+      isSendToServer
     );
 
     try {
       let val = await getPlayerAttributes(_player2Object.nftID);
       const data:number[] = val.map((element: BigInt) => Number(element));
-      console.log('Got opponent data!');
       setOpponentTraitVal(data[pickedTrait]);
       setWinner(winnerAddress);
     } catch (error) {
@@ -59,7 +59,7 @@ export default function Room() {
         console.log("Got data from share-attribute!");
         console.log(attribute);
         setPickedTrait(attribute);
-        submitToCalcWinner(attribute);
+        submitToCalcWinner(attribute,false);
       });
     }
   }, [isConnected]);

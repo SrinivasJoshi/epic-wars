@@ -6,7 +6,9 @@ export const getWinner = async (
   nftId1: Number,
   nftId2: Number,
   socketIDopponent: string,
+  isSendToServer:Boolean
 ) => {
+  if(isSendToServer){
   //send message to server
   const socket = io("https://epic-wars-server.onrender.com");
   // const socket = io("http://localhost:3001");
@@ -17,6 +19,7 @@ export const getWinner = async (
       attribute: attributeNumber,
     });
   });
+}
 
   //send tx to blockchain for calculating winner
   try {
